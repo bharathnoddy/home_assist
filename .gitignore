@@ -1,0 +1,25 @@
+# Home Assistant
+.storage/
+*.log
+*.db
+*.db-shm
+*.db-wal
+
+# Secrets
+secrets.yaml
+.env
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
