@@ -68,33 +68,51 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 
 ---
 
-## Phase 3: Smart Lighting (Weekend 5-7)
-**Goal:** Smart lights on all 3 floors controlled via HA and Alexa
+## Phase 3: Smart Lighting (Weekend 5-7) - REVISED
+**Goal:** Smart control while keeping physical switches working (80% switch / 20% app usage)
+
+**Strategy Change:** Using **Shelly relays + normal bulbs** instead of smart bulbs
+
+### Why This Approach
+- Physical switches continue working normally (family-friendly)
+- App control for remote on/off (turn off forgotten lights)
+- Much cheaper (normal LED bulbs €3-5 vs smart bulbs €10-15)
+- More reliable (one relay per room vs WiFi per bulb)
 
 ### Tasks
-1. **Hardware Planning**
-   - [ ] Count fixtures per floor
-   - [ ] Decide: bulbs vs. smart switches vs. combination
-   - [ ] Purchase IKEA Tradfri gateway + bulbs OR Zigbee coordinator
+1. **Check Prerequisites**
+   - [ ] Check switch box depth (need 35mm+)
+   - [ ] Verify neutral wire present (blue wire in switch box)
+   - [ ] Count switch locations (not bulbs)
+   - [ ] Assess electrical comfort level
 
-2. **Zigbee Setup (Recommended Approach)**
-   - Option A: Use IKEA Tradfri Gateway (simpler)
-   - Option B: Use Zigbee coordinator (ConBee II / Sonoff Zigbee 3.0) for direct control (more flexible, recommended for advanced users)
+2. **Test Installation**
+   - [ ] Order 2x Shelly 1 for testing
+   - [ ] Install in 1-2 high-usage rooms
+   - [ ] Add Shelly integration to HA
+   - [ ] Test switch + app control
 
-3. **Installation**
-   - [ ] Install coordinator/gateway
-   - [ ] Pair bulbs floor by floor
-   - [ ] Create rooms/zones in HA
-   - [ ] Expose to Alexa for voice control
+3. **Full Rollout**
+   - [ ] Order remaining Shelly units (8-10 more)
+   - [ ] Install room by room
+   - [ ] Create dashboard controls
+   - [ ] Set up areas/zones in HA
 
 4. **Basic Automations**
-   - [ ] Lights on at sunset
-   - [ ] Lights off when leaving home
-   - [ ] Motion-activated lights (requires motion sensors)
+   - [ ] Auto-off forgotten lights (30 min timeout)
+   - [ ] Turn off all lights when leaving home
+   - [ ] Bedtime routine (turn off downstairs)
+
+5. **Optional: Kids Room RGB**
+   - [ ] Get Zigbee coordinator (Sonoff ZBDongle-E)
+   - [ ] Install 2-3 RGB bulbs (IKEA Tradfri)
+   - [ ] Color changing automations
 
 ### Deliverables
-- All lights controllable via HA dashboard, Alexa voice, and mobile app
-- Basic lighting automations working
+- All lights controllable via physical switch (normal usage)
+- All lights controllable via HA app (remote control)
+- At least 2 automations working (auto-off, leaving home)
+- Family doesn't notice any change (switches work as before)
 
 ---
 
@@ -195,13 +213,14 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | NVMe SSD + HAT (optional) | Pi 5 has native NVMe support! | EUR 40-60 |
 | USB-to-serial adapter (FTDI) | P1 meter connection | EUR 10-15 |
 
-### Phase 2-3: Zigbee + Lighting (~EUR 200-350 total)
+### Phase 3: Shelly Smart Lighting (~EUR 210-280 total)
 | Item | Purpose | Est. Cost |
 |------|---------|-----------|
-| **Sonoff ZBDongle-E** | Zigbee coordinator (better range than P) | EUR 15-20 |
-| IKEA Tradfri E27 bulbs (x10-15) | Main room lighting | EUR 10-12 each |
-| IKEA Tradfri GU10 bulbs (x5-10) | Spotlights (if needed) | EUR 8-10 each |
-| IKEA Tradfri remote | Physical control backup | EUR 8 |
+| **Shelly 1** (x10-12) | Smart relay behind switches | EUR 10-12 each |
+| **Shelly Plus 1 PM Mini** (x2-3) | For tight spaces (if needed) | EUR 15 each |
+| Normal LED bulbs (x15-20) | Actual light sources | EUR 3-5 each |
+| **Optional: Sonoff ZBDongle-E** | Zigbee coordinator (kids room RGB only) | EUR 15-20 |
+| **Optional: IKEA Tradfri RGB** (x2-3) | Kids room color lights | EUR 15-20 each |
 
 ### Phase 4: Automation Enhancers
 | Item | Purpose | Est. Cost |
