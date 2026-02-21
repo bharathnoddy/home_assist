@@ -135,6 +135,18 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 ## Phase 5: Enhancements (Future)
 **Ideas for expansion:**
 
+### Water Monitoring
+- **HomeWizard Water Meter** (~EUR 50) - optical reader for Vitens meter
+- Automatic water usage tracking
+- Integration with Energy Dashboard
+- Monthly cost tracking
+
+### District Heating Automation
+- **Wait for Vattenfall Warmtelink vI1 automatic reading** (currently manual only)
+- Or explore Vattenfall portal scraper when available
+- RJ-12 port investigation for local reading
+- Integration with Energy Dashboard when possible
+
 ### Climate Control
 - Smart thermostat (tado, Nest, or Zigbee TRVs)
 - Per-room temperature control

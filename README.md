@@ -6,12 +6,15 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 
 | Device | Status | Integration |
 |--------|--------|-------------|
-| Alexa | Ready | Voice control hub |
-| Ring Doorbells (x2) | Ready | Front + back door, connected to Alexa |
-| Raspberry Pi 5 | Ready | Will run Home Assistant |
-| Solax Solar Inverter | Ready | Currently using SolaxCloud app |
-| P1 Meter (DSMR) | Ready | Direct cable connection |
-| Smart Lights | Planned | IKEA Tradfri, ~10-20 bulbs |
+| Raspberry Pi 5 | ✅ Running | Home Assistant OS @ 192.168.178.2 |
+| Ring Doorbells (x2) | ✅ Connected | Front + back door with motion & camera |
+| P1 Meter (HomeWizard) | ✅ Connected | Real-time electricity monitoring |
+| Solax Solar Inverter | ✅ Connected | Production monitoring |
+| Energy Dashboard | ✅ Active | Import/export tracking |
+| Alexa | Planned | Voice control hub (Phase 1 - optional) |
+| Smart Lights | Planned | IKEA Tradfri, ~10-20 bulbs (Phase 3) |
+| Water Meter (Vitens) | Future | Requires HomeWizard Water Meter |
+| District Heating (Vattenfall) | Future | Awaiting automatic reading support |
 
 ## Architecture
 
@@ -39,13 +42,36 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
                     └─────────────────┘    └───────────┘
 ```
 
-## Project Phases
+## Project Progress
 
-1. **Phase 1: Foundation** - Install Home Assistant, integrate Alexa + Ring
-2. **Phase 2: Energy Monitoring** - P1 meter (DSMR) + Solax solar unified dashboard
-3. **Phase 3: Smart Lighting** - IKEA Tradfri bulbs via Zigbee coordinator
-4. **Phase 4: Advanced Automations** - Presence detection, routines, security
-5. **Phase 5: Future Enhancements** - Climate control, sensors, wall tablets
+### ✅ Phase 1: Foundation (Complete)
+- Home Assistant OS on Raspberry Pi 5
+- Ring doorbell integration (front + back)
+- HACS installed
+- Basic dashboard setup
+
+### ✅ Phase 2: Energy Monitoring (Complete)
+- P1 meter (HomeWizard) integration
+- Solax solar monitoring
+- Energy Dashboard configured
+- Real-time import/export tracking
+
+### 🔲 Phase 3: Smart Lighting (Planned)
+- IKEA Tradfri bulbs via Zigbee coordinator
+- ~10-20 bulbs across 3 floors
+- Basic lighting automations
+
+### 🔲 Phase 4: Advanced Automations (Planned)
+- Presence detection
+- Smart routines (morning, evening, away)
+- Security automations (Ring motion → lights)
+- Energy optimization
+
+### 🔲 Phase 5: Future Enhancements
+- Water monitoring (HomeWizard Water Meter)
+- District heating (when Vattenfall enables auto-reading)
+- Climate control
+- Wall-mounted tablet dashboard
 
 ## Documentation
 
