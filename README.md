@@ -8,7 +8,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 |--------|--------|-------------|
 | Alexa | Ready | Voice control hub |
 | Ring Doorbells (x2) | Ready | Front + back door, connected to Alexa |
-| Raspberry Pi 4 | Ready | Will run Home Assistant |
+| Raspberry Pi 5 | Ready | Will run Home Assistant |
 | Solax Solar Inverter | Ready | Currently using SolaxCloud app |
 | P1 Meter (DSMR) | Ready | Direct cable connection |
 | Smart Lights | Planned | IKEA Tradfri, ~10-20 bulbs |

@@ -1,11 +1,13 @@
 # Phase 1: Home Assistant Installation Guide
 
 ## Prerequisites
-- Raspberry Pi 4 (4GB) ✓
+- Raspberry Pi 5 (4GB+) ✓
 - SD Card (32GB+ recommended) ✓
-- Power supply (USB-C, 3A recommended)
+- Power supply (USB-C, **5V/5A** - Pi 5 requires more power than Pi 4!)
 - Ethernet cable (recommended for initial setup)
 - Computer with SD card reader
+
+> **Note:** Pi 5 requires a 27W (5V/5A) power supply for full performance. Using a lower-rated supply may cause throttling or instability.
 
 ---
 
@@ -23,7 +25,7 @@
    3. Click "Choose OS"
    4. Scroll down → "Other specific-purpose OS"
    5. Select "Home assistants and home automation"
-   6. Select "Home Assistant" → "Home Assistant OS 14.x (RPi 4/400)"
+   6. Select "Home Assistant" → "Home Assistant OS (RPi 5)"
    7. Click "Choose Storage" → Select your SD card
    8. Click "Write" (this will take 5-10 minutes)
    ```
@@ -31,8 +33,8 @@
 ### Option B: Manual Download
 
 1. Download image: https://www.home-assistant.io/installation/raspberrypi
-   - Select: **Home Assistant OS for Pi 4 (64-bit)**
-   - File: `haos_rpi4-64-XX.X.img.xz`
+   - Select: **Home Assistant OS for Pi 5 (64-bit)**
+   - File: `haos_rpi5-64-XX.X.img.xz`
 
 2. Flash using [balenaEtcher](https://etcher.balena.io/):
    - Select downloaded image
@@ -163,8 +165,9 @@ After completing Phase 1 setup:
 - Check Pi has power (red LED) and activity (green LED)
 
 ### Slow performance
-- Consider upgrading to SSD later
-- Check power supply is 3A capable
+- Consider upgrading to SSD later (Pi 5 has native NVMe support!)
+- **Check power supply is 5A/27W capable** (Pi 5 requirement)
+- Look for lightning bolt icon in HA - indicates under-voltage
 
 ### Lost password
 - You'll need to reset via command line

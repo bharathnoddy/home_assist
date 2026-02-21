@@ -8,7 +8,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 ## Current Setup
 - Alexa (voice control)
 - Ring doorbells x2 (front + back door, connected to Alexa)
-- Raspberry Pi (available)
+- Raspberry Pi 5 (available)
 - **Solax solar inverter** (installed by Mobisolar, monitoring via SolaxCloud app)
 - **P1 meter** with direct cable connection (DSMR compatible)
 - Smart lights (planned - IKEA Tradfri, ~10-20 bulbs across 3 floors)
@@ -163,8 +163,9 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 ### Phase 1: Foundation
 | Item | Purpose | Est. Cost |
 |------|---------|-----------|
-| Raspberry Pi 4 (4GB+) | Already have | - |
-| SSD (128GB+) + USB3 adapter | Reliability + speed over SD | EUR 30-40 |
+| Raspberry Pi 5 (4GB+) | Already have | - |
+| 27W USB-C Power Supply | Pi 5 requires 5V/5A | Check if you have one |
+| NVMe SSD + HAT (optional) | Pi 5 has native NVMe support! | EUR 40-60 |
 | USB-to-serial adapter (FTDI) | P1 meter connection | EUR 10-15 |
 
 ### Phase 2-3: Zigbee + Lighting (~EUR 200-350 total)
