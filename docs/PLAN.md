@@ -151,10 +151,25 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - Media room control (TV, speakers)
 - Vacuum robot integration
 
-### Dashboards
-- Wall-mounted tablet with HA dashboard
-- Custom Lovelace cards for beautiful UI
-- Floor plan view with device status
+### Wall-Mounted Tablet Dashboard
+- **Hardware options:**
+  - Amazon Fire tablet (cheap, EUR 50-80, works great)
+  - Samsung Galaxy Tab A (better quality, EUR 150+)
+  - Old iPad/Android tablet (reuse what you have)
+- **Software:**
+  - Fully Kiosk Browser app (best for always-on kiosk mode)
+  - Screen dims at night, wakes on motion (use tablet camera)
+  - Auto-launches HA dashboard on boot
+- **Mounting:**
+  - Wall mount bracket (EUR 15-30)
+  - USB power routed through wall (or visible cable)
+  - Consider location: hallway, kitchen, living room entrance
+- **Dashboard design:**
+  - Custom Lovelace layout optimized for tablet size
+  - Floor plan view with device status
+  - Quick controls: lights, climate, scenes
+  - Ring doorbell live feeds
+  - Weather + energy display
 
 ---
 
