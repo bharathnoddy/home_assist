@@ -68,18 +68,20 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 
 ---
 
-## Phase 3: Smart Lighting (Weekend 5-7) - REVISED
-**Goal:** Smart control while keeping physical switches working (80% switch / 20% app usage)
+## Phase 3: Smart Lighting + Water Monitoring (Weekend 5-7) - REVISED
+**Goal:** Smart control while keeping physical switches working (80% switch / 20% app usage) + DIY water meter reader
 
 **Strategy Change:** Using **Shelly relays + normal bulbs** instead of smart bulbs
+**NEW:** Building **DIY water meter reader** with ESP32-CAM (in parallel with Shelly installation)
 
 ### Why This Approach
 - Physical switches continue working normally (family-friendly)
 - App control for remote on/off (turn off forgotten lights)
 - Much cheaper (normal LED bulbs €3-5 vs smart bulbs €10-15)
 - More reliable (one relay per room vs WiFi per bulb)
+- **Water monitoring:** DIY solution (€25-35) vs HomeWizard (€50) = savings + learning
 
-### Tasks
+### Tasks - Part A: Shelly Lighting
 1. **Check Prerequisites**
    - [ ] Check switch box depth (need 35mm+)
    - [ ] Verify neutral wire present (blue wire in switch box)
@@ -103,16 +105,59 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
    - [ ] Turn off all lights when leaving home
    - [ ] Bedtime routine (turn off downstairs)
 
-5. **Optional: Kids Room RGB**
-   - [ ] Get Zigbee coordinator (Sonoff ZBDongle-E)
-   - [ ] Install 2-3 RGB bulbs (IKEA Tradfri)
-   - [ ] Color changing automations
+5. **Include Bathroom & Hallway Relays**
+   - [ ] Install Shelly relays in bathrooms (2-3 rooms)
+   - [ ] Install Shelly relays in hallways (1-2 locations)
+   - [ ] Prepare for Phase 5 motion sensor integration
+   - [ ] Test switch functionality in wet environments
+
+### Tasks - Part B: DIY Water Meter Reader (Parallel Work)
+
+1. **Order Hardware**
+   - [ ] ESP32-CAM with USB-C (~€15-20) - [Amazon link](https://www.amazon.nl/CAM-module-QIQIAZI-ESP-32-CAM-ontwikkelingskaart-TF-kaartmodule/dp/B0DKT9BDBD/)
+   - [ ] 32GB microSD card (Class 10+) (~€7-12)
+   - [ ] Check at home: USB-C cable and power adapter
+
+2. **3D Print Mount**
+   - [ ] Download OpenSCAD (free software)
+   - [ ] Measure water meter location (distance, mounting space)
+   - [ ] Customize mount design (adjust camera_distance parameter)
+   - [ ] Print mount (~3 hours print time)
+
+3. **Setup ESP32-CAM**
+   - [ ] Format SD card to FAT32
+   - [ ] Flash AI-on-the-Edge firmware via USB-C
+   - [ ] Configure WiFi connection
+   - [ ] Install MQTT broker in Home Assistant (if not already)
+
+4. **Install and Train**
+   - [ ] Mount ESP32-CAM near water meter
+   - [ ] Position camera with clear view of all digits
+   - [ ] Define ROI (Region of Interest) boxes around digits
+   - [ ] Collect 100-200 training images (automatic, 24 hours)
+   - [ ] Label first 20-30 images manually
+   - [ ] Train neural network (>95% accuracy target)
+
+5. **Home Assistant Integration**
+   - [ ] Configure MQTT in AI-on-the-Edge device
+   - [ ] Verify sensor appears in HA (sensor.watermeter_value)
+   - [ ] Add to Energy Dashboard
+   - [ ] Create daily usage automation
+   - [ ] Create leak detection automation
 
 ### Deliverables
+**Lighting:**
 - All lights controllable via physical switch (normal usage)
 - All lights controllable via HA app (remote control)
 - At least 2 automations working (auto-off, leaving home)
 - Family doesn't notice any change (switches work as before)
+
+**Water Monitoring:**
+- Automatic water meter reading every 5 minutes
+- 95%+ OCR accuracy
+- Water usage tracked in Energy Dashboard
+- Leak detection automation active
+- Daily usage notifications
 
 ---
 
@@ -153,11 +198,48 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 ## Phase 5: Enhancements (Future)
 **Ideas for expansion:**
 
+### Motion Sensors (Bathrooms & Hallways)
+**Goal:** Automatic lights in bathrooms and hallways using WiFi motion sensors + Shelly relays
+
+**Hardware Needed:**
+- Motion sensors: **Shelly Motion** (WiFi, battery-powered)
+- Locations: 2-3 bathrooms, 1-2 hallways
+- **Note:** Shelly relays already installed in Phase 3!
+
+**Why Shelly Motion:**
+- ✅ WiFi (no Zigbee coordinator needed)
+- ✅ Works directly with Home Assistant
+- ✅ Battery powered (1-year battery life)
+- ✅ Integrates seamlessly with Shelly ecosystem
+- ✅ Adjustable sensitivity and timeout
+
+**Automations:**
+- [ ] Bathroom lights auto-on when motion detected
+- [ ] Auto-off after 5-10 minutes no motion
+- [ ] Night mode: keep lights off or very dim (via Shelly Dimmer if installed)
+- [ ] Hallway lights: on when passing through, off after 2 minutes
+- [ ] Adjust sensitivity to avoid false triggers
+
+**Integration:**
+- All WiFi (no Zigbee needed!)
+- Use Shelly relays already in place (Phase 3)
+- Shelly Motion → triggers automation → Shelly relay ON/OFF
+- Create custom automations per bathroom/hallway
+- Dashboard toggle for enabling/disabling auto-lights
+
+**Shopping List:**
+| Item | Quantity | Purpose | Est. Cost |
+|------|----------|---------|-----------|
+| **Shelly Motion** | 3-4 | Bathrooms + hallways motion detection | €15-18 each |
+| **Shelly Dimmer 2** (optional) | 1-2 | For night mode dimming in bathrooms | €22 each |
+| **Total (Motion only)** | | | **€45-72** |
+| **Total (with dimmers)** | | | **€89-116** |
+
 ### Water Monitoring
-- **HomeWizard Water Meter** (~EUR 50) - optical reader for Vitens meter
-- Automatic water usage tracking
-- Integration with Energy Dashboard
-- Monthly cost tracking
+- ~~**HomeWizard Water Meter** (~EUR 50)~~ → **MOVED TO PHASE 3** (DIY ESP32-CAM solution)
+- ✅ **Complete in Phase 3** with AI-on-the-Edge-Device
+- Saves €18-28 compared to HomeWizard
+- Already integrated with Energy Dashboard
 
 ### District Heating Automation
 - **Wait for Vattenfall Warmtelink vI1 automatic reading** (currently manual only)
@@ -180,6 +262,54 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - Smart locks
 - Media room control (TV, speakers)
 - Vacuum robot integration
+
+### Secure Remote Access (VPN Tunnel)
+**Goal:** Access Home Assistant securely from anywhere without exposing it to the internet
+
+**Options:**
+
+**Option 1: Tailscale (Recommended - Easiest)**
+- ✅ Free for personal use
+- ✅ Zero-config VPN (WireGuard-based)
+- ✅ Works behind NAT/firewall
+- ✅ Cross-platform (iOS, Android, Windows, Mac, Linux)
+- ✅ No port forwarding needed
+- Install Tailscale on Pi and your devices
+- Access HA: http://100.x.x.x:8123 (Tailscale IP)
+
+**Option 2: WireGuard VPN Server**
+- Install WireGuard on Raspberry Pi
+- Configure clients (phone, laptop)
+- Port forward UDP port (51820)
+- More control but requires manual setup
+
+**Option 3: CloudFlare Tunnel (Advanced)**
+- Free secure tunnel to HA
+- No port forwarding
+- Access via subdomain
+- Requires CloudFlare account
+
+**Option 4: Nabu Casa (Paid)**
+- Official Home Assistant Cloud
+- €6.50/month
+- Also enables Alexa/Google Home
+- Easiest but costs money
+
+**Recommended: Tailscale**
+```bash
+# On Raspberry Pi
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+
+# On phone/laptop: Install Tailscale app
+# Access HA via Tailscale IP
+```
+
+**Shopping List:**
+| Item | Purpose | Est. Cost |
+|------|---------|-----------|
+| Tailscale account | Free VPN mesh network | FREE |
+| OR Nabu Casa subscription | Official HA Cloud | €6.50/month |
 
 ### Wall-Mounted Tablet Dashboard
 - **Hardware options:**
@@ -213,21 +343,33 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | NVMe SSD + HAT (optional) | Pi 5 has native NVMe support! | EUR 40-60 |
 | USB-to-serial adapter (FTDI) | P1 meter connection | EUR 10-15 |
 
-### Phase 3: Shelly Smart Lighting (~EUR 210-280 total)
+### Phase 3A: Shelly Smart Lighting (~EUR 180-250 total)
 | Item | Purpose | Est. Cost |
 |------|---------|-----------|
-| **Shelly 1** (x10-12) | Smart relay behind switches | EUR 10-12 each |
+| **Shelly 1** (x12-15) | Smart relay behind switches (all rooms including bathrooms/hallways) | EUR 10-12 each |
 | **Shelly Plus 1 PM Mini** (x2-3) | For tight spaces (if needed) | EUR 15 each |
 | Normal LED bulbs (x15-20) | Actual light sources | EUR 3-5 each |
-| **Optional: Sonoff ZBDongle-E** | Zigbee coordinator (kids room RGB only) | EUR 15-20 |
-| **Optional: IKEA Tradfri RGB** (x2-3) | Kids room color lights | EUR 15-20 each |
+
+### Phase 3B: DIY Water Meter Reader (~EUR 25-35 total)
+| Item | Purpose | Est. Cost |
+|------|---------|-----------|
+| **ESP32-CAM with USB-C** | Camera + WiFi + AI-on-the-Edge | EUR 15-20 |
+| **32GB microSD card** | Firmware + training images | EUR 7-12 |
+| USB-C cable | Programming + power | Check at home |
+| USB-C power adapter | Permanent power | Check at home |
+| 3D printer filament (PLA) | Camera mount (~30g) | EUR 1-2 |
 
 ### Phase 4: Automation Enhancers
 | Item | Purpose | Est. Cost |
 |------|---------|-----------|
-| IKEA Tradfri motion sensor (x3) | One per floor for auto-lights | EUR 10 each |
 | Aqara door/window sensor (x2) | Entry detection | EUR 12 each |
 | Smart plug Zigbee (x2-3) | Appliance monitoring | EUR 15 each |
+
+### Phase 5: Motion Sensors (Bathrooms & Hallways)
+| Item | Purpose | Est. Cost |
+|------|---------|-----------|
+| **Shelly Motion** (x3-4) | WiFi motion sensors for bathrooms + hallways | EUR 15-18 each |
+| **Shelly Dimmer 2** (optional, x1-2) | For night mode dimming capability | EUR 22 each |
 
 ### Optional Services
 | Item | Purpose | Est. Cost |
@@ -239,31 +381,53 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 
 ---
 
-## Technical Architecture
+## Technical Architecture (Updated for Shelly + ESP32-CAM)
 
 ```
-                    +------------------+
-                    |     Alexa        |
-                    |  (Voice Control) |
-                    +--------+---------+
-                             |
-                    +--------v---------+
-                    |  Home Assistant  |
-                    |  (Raspberry Pi)  |
-                    +--------+---------+
-                             |
-        +--------------------+--------------------+
-        |                    |                    |
-   +----v----+         +-----v-----+        +----v----+
-   |  Ring   |         |  Zigbee   |        | Energy  |
-   |Doorbell |         |  Network  |        | Monitor |
-   +---------+         +-----+-----+        +----+----+
-                             |                   |
-                    +--------+--------+    +-----+-----+
-                    |  Smart Lights   |    | P1 Meter  |
-                    |  (All Floors)   |    | + Solar   |
-                    +-----------------+    +-----------+
+                         +------------------+
+                         |  Home Assistant  |
+                         | (Raspberry Pi 5) |
+                         |  192.168.178.2   |
+                         +--------+---------+
+                                  |
+         +------------------------+---------------------------+
+         |                        |                           |
+    +----v----+            +------v-------+            +------v------+
+    |  Ring   |            |   Shelly     |            |   Energy    |
+    |Doorbell |            |   Relays     |            |  Monitoring |
+    | (x2)    |            | WiFi Direct  |            +------+------+
+    +---------+            +------+-------+                   |
+                                  |                           |
+                         +--------+--------+        +---------+----------+
+                         |                 |        |                    |
+                    +----v-----+     +-----v----+   |                    |
+                    |  Lights  |     | Zigbee   |   |                    |
+                    | (Shelly  |     | (Motion  |   |                    |
+                    | behind   |     | sensors, |   |                    |
+                    | switches)|     | RGB kids)|   |                    |
+                    +----------+     +----------+   |                    |
+                                                +----v----+        +------v-------+
+                                                | P1 Meter|        | ESP32-CAM    |
+                                                | (HomeWiz|        | Water Meter  |
+                                                |  -ard)  |        | AI-on-Edge   |
+                                                +---------+        | (MQTT/WiFi)  |
+                                                |                  +--------------+
+                                          +-----v-----+
+                                          |  Solax    |
+                                          |  Solar    |
+                                          | Inverter  |
+                                          +-----------+
 ```
+
+**Key Components:**
+- **Shelly Relays**: Behind existing wall switches (WiFi, ~12-15 units including bathrooms/hallways)
+- **Shelly Motion** (Phase 5): WiFi motion sensors for bathrooms/hallways
+- **ESP32-CAM**: DIY water meter reader with AI-on-the-Edge (MQTT to HA)
+- **P1 Meter**: HomeWizard WiFi (electricity import/export)
+- **Solax**: Solar production monitoring via SolaxCloud API (cloud-based)
+- **Ring**: 2x doorbells (front + back)
+
+**Note:** All WiFi-based - NO Zigbee coordinator needed!
 
 ---
 
