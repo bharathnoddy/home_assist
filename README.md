@@ -15,7 +15,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | Water Meter (DIY ESP32-CAM) | 🔲 Planned | Phase 3 - AI-on-the-Edge OCR reader |
 | Motion Sensors (Shelly Motion) | 🔲 Future | Phase 5 - Bathrooms & hallways |
 | Remote Access (VPN) | 🔲 Future | Phase 5 - Tailscale secure tunnel |
-| District Heating (Vattenfall) | ⏸️ Deferred | Awaiting automatic reading support |
+| District Heating (Vattenfall) | ⏸️ Future | Via smart gateway when P1 port enabled |
 
 ## Architecture
 
@@ -39,15 +39,19 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
                     │  Wall Switches  │  │         │          │
                     │  (12-15 rooms)  │  │         │          │
                     └─────────────────┘  │         │          │
-                                    ┌────▼───┐ ┌───▼────┐ ┌───▼────┐
-                                    │P1 Meter│ │ Solax  │ │ESP32CAM│
-                                    │HomeWiz │ │ Solar  │ │ Water  │
-                                    │ (WiFi) │ │  API   │ │ Meter  │
-                                    └────────┘ └────────┘ └────────┘
+                                    ┌────▼───┐ ┌───▼────┐ ┌───▼────┐ ┌────▼─────┐
+                                    │P1 Meter│ │ Solax  │ │ESP32CAM│ │ District │
+                                    │HomeWiz │ │ Solar  │ │ Water  │ │ Heating  │
+                                    │ (WiFi) │ │  API   │ │ Meter  │ │ (Future) │
+                                    └────────┘ └────────┘ └────────┘ └────▲─────┘
+                                                                           │
+                                                                    When Vattenfall
+                                                                    enables P1 port
 
 Future (Phase 5):
 ├─ Shelly Motion sensors (bathrooms/hallways)
 ├─ Tailscale VPN (secure remote access)
+├─ District Heating via smart gateway (when P1 port available)
 └─ Wall-mounted tablet dashboard
 ```
 
@@ -112,11 +116,21 @@ Future (Phase 5):
 - No port forwarding needed
 - Works behind NAT/firewall
 
+**District Heating Monitoring**
+- Vattenfall Warmtelink vI1 meter (currently installed)
+- Waiting for Vattenfall to enable P1 port
+- When available: Use smart gateway for automatic reading
+- Options when enabled:
+  - HomeWizard P1 gateway (if compatible)
+  - Direct DSMR integration via RJ-12 port
+  - Integrate with Energy Dashboard
+  - Track heating usage and costs
+
 **Other Future Ideas:**
 - Wall-mounted tablet dashboard
 - Climate control (smart thermostat)
-- District heating (when Vattenfall enables auto-reading)
 - Smart blinds/curtains
+- Garden irrigation automation
 
 ## Documentation
 

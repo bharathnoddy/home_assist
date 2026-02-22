@@ -242,10 +242,40 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - Already integrated with Energy Dashboard
 
 ### District Heating Automation
-- **Wait for Vattenfall Warmtelink vI1 automatic reading** (currently manual only)
-- Or explore Vattenfall portal scraper when available
-- RJ-12 port investigation for local reading
-- Integration with Energy Dashboard when possible
+**Current Status:** Vattenfall Warmtelink vI1 meter installed (manual reading only)
+
+**Future Plan (When P1 Port Enabled):**
+- **Primary Option:** Smart gateway with P1 port integration
+  - HomeWizard P1 gateway (if compatible with heating meter)
+  - Direct DSMR integration via RJ-12 to P1 adapter
+  - Automatic reading every 5-10 seconds
+
+**Integration Options:**
+1. **Via P1 Port (when Vattenfall enables it):**
+   - Connect smart gateway to RJ-12 port
+   - Use DSMR integration in Home Assistant
+   - Real-time heating consumption data
+
+2. **Via Vattenfall Portal Scraper (backup):**
+   - Web scraping integration (community custom component)
+   - Monthly/daily data only (not real-time)
+   - Less reliable, requires portal access
+
+**When Available:**
+- [ ] Check if Vattenfall enabled P1 port functionality
+- [ ] Order compatible smart gateway (HomeWizard or similar)
+- [ ] Connect to RJ-12 port on Warmtelink vI1 meter
+- [ ] Add to Home Assistant Energy Dashboard
+- [ ] Track heating costs and usage trends
+- [ ] Create automations (high usage alerts, monthly reports)
+
+**Expected Integration:**
+- Sensor: `sensor.district_heating_power` (kW)
+- Sensor: `sensor.district_heating_energy` (GJ or MWh)
+- Energy Dashboard: Heating consumption tracking
+- Cost tracking with Vattenfall tariff rates
+
+**Note:** Monitor Vattenfall announcements for P1 port availability
 
 ### Climate Control
 - Smart thermostat (tado, Nest, or Zigbee TRVs)
