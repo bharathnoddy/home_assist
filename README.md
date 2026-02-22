@@ -16,6 +16,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | Motion Sensors (Shelly Motion) | 🔲 Future | Phase 5 - Bathrooms & hallways |
 | Remote Access (VPN) | 🔲 Future | Phase 5 - Tailscale secure tunnel |
 | District Heating (Vattenfall) | ⏸️ Future | Via smart gateway when P1 port enabled |
+| Ecovacs Deebot Vacuum | ✅ Connected | Robot vacuum control & monitoring |
 
 ## Architecture
 
@@ -26,13 +27,14 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
                     │  192.168.178.2  │
                     └────────┬────────┘
                              │
-        ┌────────────────────┼─────────────────────┐
-        │                    │                      │
-   ┌────▼────┐         ┌─────▼─────┐         ┌─────▼─────┐
-   │  Ring   │         │   Shelly  │         │  Energy   │
-   │Doorbell │         │  Relays   │         │Monitoring │
-   │  (x2)   │         │  (WiFi)   │         └─────┬─────┘
-   └─────────┘         └─────┬─────┘               │
+        ┌────────────────────┼─────────────────────┬─────────────┐
+        │                    │                      │             │
+   ┌────▼────┐         ┌─────▼─────┐         ┌─────▼─────┐ ┌────▼─────┐
+   │  Ring   │         │   Shelly  │         │  Energy   │ │ Ecovacs  │
+   │Doorbell │         │  Relays   │         │Monitoring │ │  Deebot  │
+   │  (x2)   │         │  (WiFi)   │         └─────┬─────┘ │  Vacuum  │
+   └─────────┘         └─────┬─────┘               │       │  (Cloud) │
+                             │                      │       └──────────┘
                              │           ┌─────────┼──────────┐
                     ┌────────┴────────┐  │         │          │
                     │  Lights Behind  │  │         │          │
@@ -96,10 +98,11 @@ Future (Phase 5):
 - Great learning experience
 
 ### 🔲 Phase 4: Advanced Automations (Planned)
-- Presence detection
-- Smart routines (morning, evening, away)
-- Security automations (Ring motion → lights)
-- Energy optimization
+- Presence detection (phone-based via HA Companion app)
+- Smart routines (morning, evening, away, guest mode)
+- Security automations (Ring motion → lights, late night alerts)
+- Energy optimization (solar peak usage)
+- Vacuum automations (Ecovacs Deebot scheduling, auto-clean when away)
 
 ### 🔲 Phase 5: Future Enhancements
 
@@ -171,6 +174,10 @@ Future (Phase 5):
 **Energy Monitoring:**
 - [HomeWizard P1 Meter](https://www.home-assistant.io/integrations/homewizard/)
 - [SolaxCloud Integration](https://www.home-assistant.io/integrations/solax/)
+
+**Smart Devices:**
+- [Ecovacs Deebot (via HACS)](https://github.com/And3rsL/Deebot-4-Home-Assistant)
+- [Ring Doorbell Integration](https://www.home-assistant.io/integrations/ring/)
 
 **Phase 5 - Remote Access:**
 - [Tailscale VPN](https://tailscale.com/)
