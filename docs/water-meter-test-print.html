@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Water Meter Test Sheet - Print This Page</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .meter {
+            page-break-inside: avoid;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .meter h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .digits {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            margin: 20px 0;
+        }
+        .digit {
+            width: 22px;
+            height: 28px;
+            border: 2px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            background: white;
+            font-family: 'Courier New', monospace;
+        }
+        .decimal {
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+        .reading {
+            font-size: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+        .instructions {
+            background: #f0f0f0;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid #333;
+        }
+        @media print {
+            .instructions {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="instructions">
+    <h1>Water Meter Test Sheet for ESP32-CAM</h1>
+    <p><strong>Instructions:</strong></p>
+    <ol>
+        <li>Print this page on A4 paper</li>
+        <li>Cut out individual meter readings or tape full page to wall</li>
+        <li>Position ESP32-CAM 10-15cm away from printed meter</li>
+        <li>Use these to practice:
+            <ul>
+                <li>Camera positioning and focus</li>
+                <li>Defining ROI boxes around digits</li>
+                <li>Training the neural network</li>
+                <li>Testing OCR accuracy</li>
+            </ul>
+        </li>
+        <li>Once comfortable, move to real water meter!</li>
+    </ol>
+    <p><strong>Note:</strong> The decimal point is after the 4th digit (red dot)</p>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 1</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <span class="decimal">.</span>
+        <div class="digit">3</div>
+        <div class="digit">4</div>
+        <div class="digit">5</div>
+        <div class="digit">6</div>
+    </div>
+    <div class="reading">Reading: 0012.3456 m³</div>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 2</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <span class="decimal">.</span>
+        <div class="digit">3</div>
+        <div class="digit">6</div>
+        <div class="digit">8</div>
+        <div class="digit">9</div>
+    </div>
+    <div class="reading">Reading: 0012.3689 m³</div>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 3</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <span class="decimal">.</span>
+        <div class="digit">4</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <div class="digit">3</div>
+    </div>
+    <div class="reading">Reading: 0012.4123 m³</div>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 4</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <span class="decimal">.</span>
+        <div class="digit">5</div>
+        <div class="digit">7</div>
+        <div class="digit">8</div>
+        <div class="digit">9</div>
+    </div>
+    <div class="reading">Reading: 0012.5789 m³</div>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 5</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">3</div>
+        <span class="decimal">.</span>
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+    </div>
+    <div class="reading">Reading: 0013.0000 m³</div>
+</div>
+
+<div class="meter">
+    <h2>WATER METER TEST - Reading 6 (Edge Case - Rollover)</h2>
+    <div class="digits">
+        <div class="digit">0</div>
+        <div class="digit">0</div>
+        <div class="digit">1</div>
+        <div class="digit">2</div>
+        <span class="decimal">.</span>
+        <div class="digit">9</div>
+        <div class="digit">9</div>
+        <div class="digit">9</div>
+        <div class="digit">8</div>
+    </div>
+    <div class="reading">Reading: 0012.9998 m³</div>
+</div>
+
+</body>
+</html>
