@@ -11,8 +11,8 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | P1 Meter (HomeWizard) | ✅ Connected | Real-time electricity monitoring |
 | Solax Solar Inverter | ✅ Connected | Production monitoring via SolaxCloud API |
 | Energy Dashboard | ✅ Active | Import/export tracking |
-| Smart Lights (Smart Switches) | 🔄 In Progress | Phase 3 - WiFi smart switches (Shelly/Tuya) |
-| Water Meter (DIY ESP32-CAM) | 🔄 In Progress | Phase 3 - Training in progress, MQTT working |
+| Smart Lights (Smart Switches) | 🔄 In Progress | Phase 4 - WiFi smart switches (Shelly/Tuya) |
+| Water Meter (DIY ESP32-CAM) | ✅ Complete | Phase 3 - 90%+ accuracy, monitoring daily usage |
 | Remote Access (Tailscale VPN) | ✅ Connected | Secure remote access configured |
 | Motion Sensors | 🔲 Future | Phase 5 - Bathrooms & hallways |
 | District Heating (Vattenfall) | ⏸️ Future | Via smart gateway when P1 port enabled |
@@ -52,7 +52,6 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 
 ┌─── Future Additions (Phase 5) ───────────────────────────────────────────┐
 │  • Shelly Motion sensors (bathrooms/hallways) - WiFi                     │
-│  • Tailscale VPN (secure remote access) - FREE                           │
 │  • District Heating via smart gateway (waiting for Vattenfall P1 port)   │
 │  • Wall-mounted tablet dashboard                                         │
 └───────────────────────────────────────────────────────────────────────────┘
@@ -75,42 +74,55 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - Energy Dashboard configured
 - Real-time import/export tracking
 
-### 🔄 Phase 3: Smart Lighting + Water Monitoring (In Progress)
+### ✅ Phase 3: Remote Access + Water Monitoring (COMPLETE!)
 
-**Part A: Smart Switch Lighting** ⏳
-- **DECISION UPDATED:** Using WiFi smart switches instead of relays
-- Replace existing switches with smart switches (12-15 units)
-- Options considered:
-  - Shelly Wall Switch (€22-28 each) - Premium, local control
-  - Tuya Smart Switch (€12-18 each) - Budget-friendly
-  - Sonoff MINI R4 (€13-18 each) - Behind existing switches
-- **Why smart switches won vs Shelly relays:**
-  - Much simpler installation (like replacing normal switch)
-  - No WAGO connectors needed (beginner-friendly)
-  - Future-proof (easy to replace/upgrade)
-  - Only €5-10 more per switch (worth the simplicity!)
-- Testing phase: Order 2-3 units first, then rollout
-- See: [Smart Switch Decision Guide](docs/smart-switch-guide.md)
+**Part A: Tailscale VPN** ✅ COMPLETE!
+- ✅ Tailscale add-on installed in Home Assistant
+- ✅ MagicDNS enabled for easy access (no IP addresses!)
+- ✅ Secure remote access from anywhere
+- ✅ No port forwarding needed
+- ✅ FREE solution (WireGuard-based)
+- **Result:** Access Home Assistant securely from external networks!
 
-**Part B: DIY Water Meter Reader** 🔄
+**Part B: DIY Water Meter Reader** ✅ COMPLETE!
 - ✅ ESP32-CAM with AI-on-the-Edge firmware installed
 - ✅ MQTT integration working with Home Assistant
 - ✅ Added to Energy Dashboard
 - ✅ ApexCharts visualization configured
-- 🔄 Auto-training in progress (24-48 hours for 90%+ accuracy)
-- 🔄 Currently using test print, will move to real meter soon
-- Cost: €22-32 vs €50 HomeWizard = €18-28 savings
-- 3D printed camera mount designed
+- ✅ Auto-training completed (90%+ accuracy achieved!)
+- ✅ Reading water consumption reliably
+- ✅ Leak detection monitoring active
+- ✅ Daily usage tracking operational
+- **Result:** €25-30 vs €50 HomeWizard = €20-25 savings + learning experience!
 - See: [Water Meter Setup Guide](docs/water-meter-setup.md)
 
-**Why WiFi Smart Switches + DIY approach:**
+**Why WiFi + DIY approach:**
 - All WiFi-based (no Zigbee coordinator needed)
-- Beginner-friendly installation (smart switches = simple)
-- Cost-effective (saves money on water meter)
+- Cost-effective (saves money, no subscriptions)
 - Great learning experience
-- Future-proof and maintainable
+- Full control and privacy
 
-### 🔲 Phase 4: Advanced Automations (Planned)
+---
+
+### 🔄 Phase 4: Smart Lighting (In Progress - Moved from Phase 3)
+
+**Smart Switch Installation**
+- **DECISION:** Using WiFi smart switches instead of Shelly relays
+- Replace existing wall switches with smart switches (12-15 units)
+- Testing phase: Order 2-3 units first, evaluate before full rollout
+- Options evaluated:
+  - Tuya Touch Switch (€12) - Budget option
+  - Sonoff MINI R4 (€15) - Hidden behind switch
+  - Shelly Wall Switch (€25) - Premium option
+- See: [Smart Switch Comparison Guide](docs/smart-switch-guide.md)
+
+**Why Smart Switches vs Relays:**
+- ✅ Much simpler installation (no WAGO connectors needed)
+- ✅ Future-proof and easy to maintain
+- ✅ Only €5-10 more per switch than relays
+- ✅ Better for beginner skill level
+
+**Automations Planned:**
 - Presence detection (phone-based via HA Companion app)
 - Smart routines (morning, evening, away, guest mode)
 - Security automations (Ring motion → lights, late night alerts)
@@ -125,12 +137,6 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - Auto-off after timeout
 - Night mode (dim or off during sleep hours)
 - Cost: ~€45-72 for 3-4 sensors
-
-**Secure Remote Access**
-- Tailscale VPN (FREE, WireGuard-based)
-- Access HA from anywhere securely
-- No port forwarding needed
-- Works behind NAT/firewall
 
 **District Heating Monitoring**
 - Vattenfall Warmtelink vI1 meter (currently installed)
@@ -162,14 +168,14 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 | Phase | Components | Est. Cost | Status |
 |-------|-----------|-----------|--------|
 | Phase 1-2 | ✅ Complete | - | ✅ Done |
-| Phase 3A | Smart switches (15 units) | €180-420 | 🔄 Testing |
+| Phase 3 | Tailscale VPN | FREE | ✅ Complete! |
+| Phase 3 | DIY water meter | €25-30 | ✅ Complete! |
+| Phase 4 | Smart switches (15 units) | €180-420 | 🔄 Testing |
 | | - Tuya option (budget) | €180 (15 × €12) | Option A |
 | | - Sonoff MINI option | €225 (15 × €15) | Option B |
 | | - Shelly Wall Switch (premium) | €375 (15 × €25) | Option C |
-| Phase 3B | DIY water meter | €22-32 | 🔄 Training |
-| Phase 5 | Tailscale VPN | FREE | ✅ Done |
 | Phase 5 | Motion sensors | €45-72 | 🔲 Future |
-| **Total** | **Phases 3-5** | **€247-524** | |
+| **Total** | **Phases 4-5** | **€225-492** | |
 
 **Budget-friendly option:** Tuya switches = €180 + €32 water meter = **€212 total**
 **Premium option:** Shelly switches = €375 + €32 water meter = **€407 total**
@@ -181,7 +187,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - [Home Assistant](https://www.home-assistant.io/)
 - [HACS (Home Assistant Community Store)](https://hacs.xyz/)
 
-**Phase 3 - Smart Lighting:**
+**Phase 4 - Smart Lighting:**
 - [Shelly Wall Switch](https://www.shelly.com/products/shelly-wall-switch-with-1-button) - Premium option
 - [Tuya/Smart Life Integration](https://www.home-assistant.io/integrations/tuya/) - Budget option
 - [Sonoff Products](https://sonoff.tech/) - Alternative option
@@ -200,7 +206,7 @@ Central smart home system using **Home Assistant** on Raspberry Pi, integrating 
 - [Ecovacs Deebot (via HACS)](https://github.com/And3rsL/Deebot-4-Home-Assistant)
 - [Ring Doorbell Integration](https://www.home-assistant.io/integrations/ring/)
 
-**Phase 5 - Remote Access:**
+**Phase 3 - Remote Access:**
 - [Tailscale VPN](https://tailscale.com/)
 
 ## License
